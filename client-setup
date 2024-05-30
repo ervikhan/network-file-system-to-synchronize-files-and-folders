@@ -1,0 +1,41 @@
+<h2>Client Side Setup</h2>
+
+- Update repos
+    
+    ```bash
+    apt update
+    ```
+
+- Install service
+    
+    ```bash
+    apt install nfs-common -y
+    ```
+    
+- Make shared folder
+    
+    ```bash
+    mkdir -p /home/container
+    ```
+    
+- Mounting
+    
+    ```bash
+    sudo mount nfs_server_ip:/server_directory /client_directory
+    ```
+    
+    ```bash
+    sudo mount 192.168.2.20:/home/nfs-test /home/container
+    ```
+    
+- Set permanent mount
+    
+    ```bash
+    nano /etc/fstab
+    ```
+    
+    *fill with this*
+    
+    ```jsx
+    192.168.2.20:/home/nfs-test /home/container nfs defaults,vers=3 0 0
+    ```

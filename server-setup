@@ -1,0 +1,67 @@
+<h2>Server Side Setup</h2>
+
+- Update repos
+    
+    ```bash
+    apt update
+    ```
+    
+- Install service
+    
+    ```bash
+    apt install nfs-kernel-server
+    ```
+    
+- Check status service
+    
+    ```bash
+    systemctl status nfs-server
+    ```
+    
+- Create NFS directory share
+    
+    ```bash
+    mkdir /home/nfs-test
+    ```
+    
+- Change permission and owner
+    
+    ```bash
+    chown nobody:nogroup /home/nfs-test
+    ```
+    
+    ```bash
+    chmod -R 777 /home/nfs-test
+    ```
+    
+- Grant the NFS Server access to clients
+    
+    ```bash
+    nano /etc/exports
+    ```
+    
+    *fill with this line code*
+    
+    ```bash
+    /home/nfs-test 192.168.0.0/22(rw,sync,no_subtree_check)
+    ```
+    
+    ```bash
+    Explaning : 
+    rw  (Read and Write )
+    sync  (Write changes to disk before applying them)
+    no_subtree_check  (Avoid subtree checking )
+    
+    ```
+    
+- Export the shared directory
+    
+    ```bash
+    exportfs -a
+    ```
+    
+- If ufw is enable
+    
+    ```bash
+    ufw allow from 192.168.0.0/22 to any port nfs
+    ```
